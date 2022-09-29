@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
-var index = require('./routes/index');
 var app = express();
 
 
@@ -14,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // routes
-app.use('/', index);
+app.use('/', require('./routes/index'));
 app.use('/spotify/', require('./routes/spotify'));
 
 

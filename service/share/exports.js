@@ -1,2 +1,3 @@
-const lrucache = require('./lru-cache.js');
-const mongodb = require('./database/mongodb.js');
+exports.lrucache = require('./lru-cache.js');
+exports.mongodb = require('./database/mongodb.js');
+exports.axios = require('./axios.js');
