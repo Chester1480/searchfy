@@ -134,7 +134,21 @@
       const nextPageUrl = result.data.albums.next;
       const totalCount = result.data.albums.total;
       
-      result.data.albums.items
+      result.data.albums.items.forEach(item => {
+        //item.href
+        //item.artists array
+        //artists.href
+        //artists.id
+        //artists.name
+        //artists.type
+        //artists.uri
+
+        //item.id
+        //item.images 0:640 , 1:300 , 2:64
+        //item.name
+        //item.release_date
+        //item.type (album)
+      });
   };
 
   
