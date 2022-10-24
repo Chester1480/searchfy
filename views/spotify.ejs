@@ -28,5 +28,13 @@
 </html>
 
 <script>
-
+    window.onload = async function(){   
+      const params = {
+        countryCode:"US",
+        limit:"10",
+        offset:"2"
+      }
+      const url = "localhost:3000/spotify/newReleases";
+      const result = await get(url,params);
+    };
 </script>

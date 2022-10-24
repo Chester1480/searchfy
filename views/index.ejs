@@ -122,6 +122,21 @@
 
   }
 
+  window.onload = async function(){   
+      const params = {
+        countryCode:"US",
+        limit:"10",
+        offset:"2"
+      }
+      const url = "http://localhost:3000/spotify/newReleases?";
+      const result = await get(url,params);
+      const previousPageUrl = result.data.albums.previous;
+      const nextPageUrl = result.data.albums.next;
+      const totalCount = result.data.albums.total;
+      
+      result.data.albums.items
+  };
+
   
   
 </script>
