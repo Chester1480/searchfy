@@ -101,7 +101,7 @@
   const picCount = 16;
   let content = document.createElement('div');
   content.className = "container-fluid";
-  let picHtml = '<div class="row gy-4 justify-content-center"><div id="contentDiv">';
+  let picHtml = '<div id="contentDiv"><div class="row gy-4 justify-content-center">';
   for (let index = 1; index <= picCount; index++) {
     picHtml += 
     ` <div class="col-xl-3 col-lg-4 col-md-6">
@@ -136,17 +136,18 @@
   }
 
   window.onload = async function(){   
-      setInterval(async function(){
+      //setInterval(async function(){
 
         var result = await getSpotifyData();
-        let contentHtml = '';
+        console.log(result)
+        let contentHtml = '<div class="row gy-4 justify-content-center">';
         result.data.albums.items.forEach(item => {
           contentHtml += `
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="gallery-item h-100">
-              <img src="${item.images[1]}" class="img-fluid" alt="">
+              <img src="${item.images[0].url}" class="img-fluid" alt="">
               <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="${item.images[2]}" title="Gallery ${item.id}" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                <a href="${item.images[2].url}" title="Gallery ${item.id}" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
                 <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div>
@@ -166,9 +167,9 @@
           //item.release_date
           //item.type (album)
         });
-        document.getElementById("contentDiv").innerHTML = contentHtml;
+        document.getElementById("contentDiv").innerHTML = contentHtml+"</div>";
          
-      }, 1000);
+      //}, 1000);
 
   };
 
