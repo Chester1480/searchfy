@@ -101,7 +101,7 @@
   const picCount = 16;
   let content = document.createElement('div');
   content.className = "container-fluid";
-  let picHtml = '<div class="row gy-4 justify-content-center">';
+  let picHtml = '<div class="row gy-4 justify-content-center"><div id="contentDiv">';
   for (let index = 1; index <= picCount; index++) {
     picHtml += 
     ` <div class="col-xl-3 col-lg-4 col-md-6">
@@ -114,16 +114,15 @@
         </div>
       </div>`;
   }
-  picHtml += '</div>';
+  picHtml += '</div></div>';
   content.innerHTML = picHtml;
   document.getElementById('gallery').innerHTML = content.innerHTML;
 
   async function getData(){
 
   }
-
-  window.onload = async function(){   
-      const params = {
+  async function getSpotifyData(){
+    const params = {
         countryCode:"US",
         limit:"10",
         offset:"2"
@@ -133,22 +132,44 @@
       const previousPageUrl = result.data.albums.previous;
       const nextPageUrl = result.data.albums.next;
       const totalCount = result.data.albums.total;
-      
-      result.data.albums.items.forEach(item => {
-        //item.href
-        //item.artists array
-        //artists.href
-        //artists.id
-        //artists.name
-        //artists.type
-        //artists.uri
+      return result;
+  }
 
-        //item.id
-        //item.images 0:640 , 1:300 , 2:64
-        //item.name
-        //item.release_date
-        //item.type (album)
-      });
+  window.onload = async function(){   
+      setInterval(async function(){
+
+        var result = await getSpotifyData();
+        let contentHtml = '';
+        result.data.albums.items.forEach(item => {
+          contentHtml += `
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="gallery-item h-100">
+              <img src="${item.images[1]}" class="img-fluid" alt="">
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="${item.images[2]}" title="Gallery ${item.id}" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div>
+          `
+          //item.href
+          //item.artists array
+          //artists.href
+          //artists.id
+          //artists.name
+          //artists.type
+          //artists.uri
+
+          //item.id
+          //item.images 0:640 , 1:300 , 2:64
+          //item.name
+          //item.release_date
+          //item.type (album)
+        });
+        document.getElementById("contentDiv").innerHTML = contentHtml;
+         
+      }, 1000);
+
   };
 
   
