@@ -87,7 +87,10 @@
 
   <div class="modal fade" id="picModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <img src="" id="picInModelContent" alt="">
+      <h5 class="modal-title" id="exampleModalLabel"></h5>
+      <div class="modal-content">
+        <img src="" id="picInModelContent" alt="">
+      </div>
     </div>
   </div>
 
@@ -138,8 +141,9 @@
       return result;
   }
 
-  function setPic(picUrl){
+  function setPic(picUrl,title){
     document.getElementById("picInModelContent").src= picUrl;
+    document.getElementById("exampleModalLabel").innerHTML = title;
     $('#picModel').modal('show')
   }
 
@@ -153,7 +157,7 @@
             <div class="gallery-item h-100">
               <img src="${item.images[0].url}" class="img-fluid" alt="">
               <div class="gallery-links d-flex align-items-center justify-content-center">
-                <div onclick="setPic('${item.images[0].url}')"><span id="boot-icon" class="bi bi-link-45deg" style="font-size:3rem"></span></div>
+                <div onclick="setPic('${item.images[0].url}','${item.artists[0].name} - ${item.name}')"><span id="boot-icon" class="bi bi-zoom-in" style="font-size:3rem"></span></div>
               </div>
             </div>
           </div>
