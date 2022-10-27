@@ -85,6 +85,12 @@
     <div class="line"></div>
   </div>
 
+  <div class="modal fade" id="picModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <img src="" id="picInModelContent" alt="">
+    </div>
+  </div>
+
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
@@ -118,9 +124,6 @@
   content.innerHTML = picHtml;
   document.getElementById('gallery').innerHTML = content.innerHTML;
 
-  async function getData(){
-
-  }
   async function getNewReleases(){
       const params = {
         code:"US",
@@ -135,6 +138,11 @@
       return result;
   }
 
+  function setPic(picUrl){
+    document.getElementById("picInModelContent").src= picUrl;
+    $('#picModel').modal('show')
+  }
+
   window.onload = async function(){   
         var result = await getNewReleases();
         let contentHtml = '<div class="row gy-4 justify-content-center">';
@@ -144,7 +152,9 @@
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="gallery-item h-100">
               <img src="${item.images[0].url}" class="img-fluid" alt="">
-             
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <div onclick="setPic('${item.images[0].url}')"><span id="boot-icon" class="bi bi-link-45deg" style="font-size:3rem"></span></div>
+              </div>
             </div>
           </div>
           `
@@ -166,6 +176,7 @@
 
         });
         document.getElementById("contentDiv").innerHTML = contentHtml+"</div>";
+        //<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
         // <div class="gallery-links d-flex align-items-center justify-content-center">
         //         <a href="${item.images[2].url}" title="Gallery ${item.id}" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
         //         <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
