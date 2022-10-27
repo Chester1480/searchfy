@@ -2,7 +2,7 @@ async function get(url,params) {
     return new Promise(async (resolve, reject) => {
         let paramsStr = "";
         Object.keys(params).forEach(key => {
-            paramsStr += key + "=" + params[key];
+            paramsStr += key + "=" + params[key]+"&&";
         });
         url += paramsStr;
         const response = await fetch(url, {

@@ -58,20 +58,53 @@ exports.search = async (parameters) => {
     return response;
 }
 
-
 exports.newReleases = async (parameters) => {
-    const { countryCode, limit, offset } = parameters;
+    const { code, limit, offset } = parameters;
     const token = await getToken();
-
     const url = 'https://api.spotify.com/v1/browse/new-releases';
-    if (!countryCode) {
-        countryCode = contryCode.US;
+    if (!code) {
+        code = "US";
     }
 
     const params = {
-        countryCode,
+        country:code,
         limit, 
         offset
+    }
+    const result = await axios.get(url, {
+        params,
+        headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        },
+    })
+    return result.data;
+}
+exports.getTracks = async(parameters)=>{
+    const { id } = parameters;
+    const url = 'https://api.spotify.com/v1/tracks/'+id;
+    const params = {
+        id,
+
+    }
+    const result = await axios.get(url, {
+        params,
+        headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        },
+    })
+    return result.data;
+}
+
+exports.getAlbumTracks = async(parameters)=>{
+    const { id } = parameters;
+    const token = await getToken();
+    const url = 'https://api.spotify.com/v1/albums/'+id+"/tracks";
+    const params = {
+        id
     }
     const result = await axios.get(url, {
         params,

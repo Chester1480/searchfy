@@ -9,10 +9,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/newReleases', async function (req, res, next) {
-    const { countryCode, limit, offset } = req.query;
-
+    const { code, limit, offset } = req.query;
     //判斷
-    const data = await spotify.newReleases({ countryCode, limit, offset });
+    const data = await spotify.newReleases({ code, limit, offset });
     res.json({
         data,
         message:"newReleases"
