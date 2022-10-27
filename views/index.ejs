@@ -50,6 +50,13 @@
         <div class="col-lg-6 text-center">
           <h2>This is <span>searchfy</span></h2>
           <p>search music on spotify for you</p>
+          <p>Please Choose Country </p>
+          <select id="selectValue" class="form-select" aria-label="Default select example">
+            <option value="US">US</option>
+            <option value="JP">JP</option>
+            <option value="TW">TW</option>
+          </select>
+          <button type="button" onclick="query()" class="btn btn-primary">Search</button>
         </div>
       </div>
     </div>
@@ -130,9 +137,16 @@
   content.innerHTML = picHtml;
   document.getElementById('gallery').innerHTML = content.innerHTML;
 
-  async function getNewReleases(){
+  async function query(){
+    const code = document.getElementById("selectValue").value ;
+    var result = await getNewReleases(code);
+    await fillData(result);
+    console.log(code);
+  }
+
+  async function getNewReleases(code="US"){
       const params = {
-        code:"US",
+        code,
         limit:"20",
         offset:"0"
       }
@@ -156,11 +170,8 @@
     console.log('#'+id);
     $('#'+id).modal('hide');
   }
-
-
-  window.onload = async function(){   
-        var result = await getNewReleases();
-        let contentHtml = '<div class="row gy-4 justify-content-center">';
+  async function fillData(result){
+    let contentHtml = '<div class="row gy-4 justify-content-center">';
         // 階層 result.data.albums.items
         result.data.albums.items.forEach(item => {
           let title = `${item.artists[0].name} - ${item.name}`.replaceAll(/\'/g,"’");
@@ -197,6 +208,12 @@
         //         <a href="${item.images[2].url}" title="Gallery ${item.id}" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
         //         <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
         // </div>
+  }
+
+
+  window.onload = async function(){   
+        var result = await getNewReleases();
+        await fillData(result);
   };
 
   
