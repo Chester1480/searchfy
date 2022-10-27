@@ -19,7 +19,6 @@ router.get('/newReleases', async function (req, res, next) {
 });
 
 router.get('/search', function(req, res, next) {
-    console.log(11)
     return res.send({
         data:{},
         message:"test"
