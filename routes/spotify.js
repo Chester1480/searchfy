@@ -19,10 +19,8 @@ router.get('/newReleases', async function (req, res, next) {
 });
 
 router.get('/search', function(req, res, next) {
-    return res.send({
-        data:{},
-        message:"test"
-    });
+    console.log('search')
+    res.render('search', {page:'search', menuId:'search'});
 });
 
 
