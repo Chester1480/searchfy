@@ -23,6 +23,10 @@ router.get('/search', function(req, res, next) {
     res.render('search', {page:'search', menuId:'search'});
 });
 
+router.post('/search', function(req, res, next) {
+    
+});
+
 
 
 module.exports = router;
