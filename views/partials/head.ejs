@@ -7,44 +7,17 @@
 
 <!-- ======= Header ======= -->
 <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid d-flex align-items-center justify-content-between">
-
-      <a href="/" class="logo d-flex align-items-center  me-auto me-lg-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <i class="bi bi-spotify"></i>
-        <h1>searchfy</h1>
-      </a>
-      <select id="selectValue" onchange="query()" class="form-select" aria-label="Default select example">
-        <option value="US">US</option>
-        <option value="JP">JP</option>
-        <option value="KR">KR</option>
-        <option value="TW">TW</option>
-        <option value="AU">AU</option>
-        <option value="GB">UK</option>
-        <option value="DE">DE</option>
-        <option value="FR">FR</option>
-      </select>
-        <!-- <div title="Search" class="search-bar">
-            <button type="button" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
-            <i class="bi bi-search"></i>
-            </button>
-        </div> -->
-        <!-- <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <form class="search-form d-flex align-items-center ajaxform" data-append="#main" method="POST" action="https://bootstrapmade.com/search/"> 
-                    <input type="text" value="" name="q" placeholder="Search" title="Enter search keyword"> 
-                    </form>
-                </div>
-            </div>
-        </div> -->
+      <div class="container-fluid d-flex align-items-center justify-content-between">
+        <a href="/" class="logo d-flex align-items-center  me-auto me-lg-0">
+          <!-- Uncomment the line below if you also wish to use an image logo -->
+          <!-- <img src="assets/img/logo.png" alt=""> -->
+          <i class="bi bi-spotify"></i>
+          <h1>searchfy</h1>
+        </a>
+        <div id="headerContent"></div>
       </div>
 
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="/" class="active">New Release</a></li>
-          <li><a href="/spotify/search">Search</a></li>
           <!-- <li class="dropdown"><a href="#"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="gallery.html">Nature</a></li>
@@ -64,6 +37,7 @@
           </li>
           <li><a href="services.html">Services</a></li>
           <li><a href="contact.html">Contact</a></li> -->
+        <ul id="ulHtml">
         </ul>
       </nav><!-- .navbar -->
 
@@ -78,3 +52,15 @@
 
     </div>
   </header><!-- End Header -->
+
+  <script>
+    const menu = [
+      { route:"/",displayName:"NewRelease" ,html:`<li><a href="/" class="active">NewRelease</a></li>`},
+      { route:"/spotify/search",displayName:"Search",html:`<li><a href="/spotify/search">Search</a></li>` }
+    ]
+    let ulHtml = "";
+    menu.forEach(item =>{
+      ulHtml += item.html;
+     });
+    document.getElementById("ulHtml").innerHTML = ulHtml;
+  </script>
