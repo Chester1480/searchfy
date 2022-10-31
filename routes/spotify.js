@@ -26,6 +26,31 @@ router.post('/search', function(req, res, next) {
     
 });
 
+/**
+ * 取得目前有分類的類型
+ */
+router.get('/availableGenreSeeds', async function(req, res, next) {
+    const data = await spotify.availableGenreSeeds();
+    res.json({
+        data,
+        message:"availableGenreSeeds"
+    });
+});
+
+/**
+ * 
+ */
+ router.get('/categories', async function(req, res, next) {
+    const { country ,locale,limit, offset }  = req.query;
+    const data = await spotify.categories({ country ,locale,limit, offset });
+    res.json({
+        data,
+        message:"categories"
+    });
+});
+
+
+
 
 
 module.exports = router;

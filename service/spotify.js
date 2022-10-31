@@ -116,3 +116,31 @@ exports.getAlbumTracks = async(parameters)=>{
     })
     return result.data;
 }
+
+exports.availableGenreSeeds = async(parameters)=>{
+    // const { id } = parameters;
+    const token = await getToken();
+    const url = 'https://api.spotify.com/v1/recommendations/available-genre-seeds';
+    const result = await axios.get(url, {
+        headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        },
+    })
+    return result.data;
+}
+
+exports.categories = async(parameters)=>{
+    const { id } = parameters;
+    const token = await getToken();
+    const url = 'https://api.spotify.com/v1/browse/categories';
+    const result = await axios.get(url, {
+        headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        },
+    })
+    return result.data;
+}

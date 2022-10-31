@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Index</title>
+  <title>NewRelease</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -92,7 +92,7 @@
         limit:"20",
         offset:"0"
       }
-      const url = "http://localhost:3000/spotify/newReleases?";
+      const url = getDomain()+"/spotify/newReleases?";
       const result = await get(url,params);
       const previousPageUrl = result.data.albums.previous;
       const nextPageUrl = result.data.albums.next;
