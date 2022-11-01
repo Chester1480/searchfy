@@ -62,10 +62,6 @@ exports.newReleases = async (parameters) => {
     const { code, limit, offset } = parameters;
     const token = await getToken();
     const url = 'https://api.spotify.com/v1/browse/new-releases';
-    if (!code) {
-        code = "US";
-    }
-
     const params = {
         country:code,
         limit, 
@@ -81,12 +77,11 @@ exports.newReleases = async (parameters) => {
     })
     return result.data;
 }
-exports.getTracks = async(parameters)=>{
+exports.getTracksById = async(parameters)=>{
     const { id } = parameters;
     const url = 'https://api.spotify.com/v1/tracks/'+id;
     const params = {
         id,
-
     }
     const result = await axios.get(url, {
         params,
@@ -136,6 +131,55 @@ exports.categories = async(parameters)=>{
     const token = await getToken();
     const url = 'https://api.spotify.com/v1/browse/categories';
     const result = await axios.get(url, {
+        headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        },
+    })
+    return result.data;
+}
+
+exports.getGlobalTop = async () =>{
+
+    const token = await getToken();
+    const url = 'https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF';
+    const result = await axios.get(url, {
+        headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        },
+    })
+    return result.data;
+}
+
+exports.getAudioFeatures = async (ids) =>{
+    const token = await getToken();
+    const url = 'https://api.spotify.com/v1/audio-features';
+    const params = {
+        ids
+    }
+    const result = await axios.get(url, {
+        params,
+        headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        },
+    })
+    return result.data;
+}
+
+exports.getTracks = async (market,ids) =>{
+    const token = await getToken();
+    const url = 'https://api.spotify.com/v1/tracks';
+    const params = {
+        market,
+        ids
+    }
+    const result = await axios.get(url, {
+        params,
         headers: {
             Accept: 'application/json',
             Authorization: 'Bearer ' + token,

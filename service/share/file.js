@@ -3,18 +3,21 @@ var fs = require('fs');
 // console.log(data);
 
 exports.read = async (filePath) => {
-    await fs.readFileSync(filePath, 'utf8', function(err, data) {
-        if(err) {
-            console.error("Could not open file: %s", err);
-            return;
-        }
-    });
+    const result = await fs.readFileSync(filePath, 'utf8');
+    return result;
 }
 
 exports.write = async (filePath) => {
-    await fs.writeFileSync(filePath, data, function(err) {
-        if(err) {
-            console.error("Could not write file: %s", err);
-        }
-    });
+    const result = await fs.writeFileSync(filePath, 'utf8');
+    return result;
+}
+
+exports.readOnStream = async (filePath) => {
+    const result = await fs.readFileSync(filePath, 'utf8');
+    return result;
+}
+
+exports.writeOnStream = async (filePath) => {
+    const result = await fs.writeFileSync(filePath, 'utf8');
+    return result;
 }

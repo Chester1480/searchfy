@@ -18,6 +18,27 @@ router.get('/newReleases', async function (req, res, next) {
     });
 });
 
+/**
+ * 
+ */
+ router.get('/getNewReleasesAndTrack', async function(req, res, next) {
+    const { code, limit, offset } = req.query;
+    const data = await spotify.newReleases({ code, limit, offset });
+    let ids = data.albums.items.map(tracks =>{
+        return tracks.id;
+    });
+    ids = ids.join(',');
+
+    const result = await spotify.getTracks(code,ids);
+    console.log(result)
+
+    res.json({
+        data,
+        message:"getNewReleasesAndTrack"
+    });
+});
+
+
 router.get('/search', function(req, res, next) {
     res.render('search', {page:'search', menuId:'search'});
 });
@@ -48,6 +69,19 @@ router.get('/availableGenreSeeds', async function(req, res, next) {
         message:"categories"
     });
 });
+
+/**
+ * 
+ */
+ router.get('/getGlobalTop', async function(req, res, next) {
+    const {  }  = req.query;
+    const data = await spotify.getGlobalTop();
+    res.json({
+        data,
+        message:"getGlobalTop"
+    });
+});
+
 
 
 
