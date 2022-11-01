@@ -24,16 +24,39 @@ router.get('/newReleases', async function (req, res, next) {
  router.get('/getNewReleasesAndTrack', async function(req, res, next) {
     const { code, limit, offset } = req.query;
     const data = await spotify.newReleases({ code, limit, offset });
+    let newReleases = new Map();
+    data.albums.items.forEach(album => {
+        newReleases.set(
+            album.id,
+            {
+                albumId:album.id,
+                albumArtists:album.artists,
+                albumName:album.name,
+                totalTracks:album.total_tracks,
+                releaseDate:album.release_date,
+                albumType:album.album_type,
+                externalUrls:album.external_urls.spotify,
+                albumImages:album.images,
+                albumTrack:[]
+            }
+        )
+    });
+
     let ids = data.albums.items.map(tracks =>{
         return tracks.id;
     });
-    ids = ids.join(',');
 
-    const result = await spotify.getTracks(code,ids);
-    console.log(result)
+    const albumIds = ids.join(',');
+    const albumsResult = await spotify.albums(code,albumIds);
 
+    // albumsResult.albums.forEach(item => {
+    //     let release = newReleases.get(item.id);
+    //     release.albumTrack = item.tracks.items.preview_url
+    //     newReleases.set(item.id,release);
+    // })
+    //console.log(newReleases.get('1WMh0LAOyEUgcHYT3nHYhc').albumTrack.items);
     res.json({
-        data,
+        data:albumsResult,
         message:"getNewReleasesAndTrack"
     });
 });

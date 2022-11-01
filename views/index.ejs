@@ -86,17 +86,18 @@
   }
   //#endregion
   //
-  async function getNewReleases(code="US"){
+  async function getNewReleasesAndTrack(code="US"){
       const params = {
         code,
         limit:"20",
         offset:"0"
       }
-      const url = getDomain()+"/spotify/newReleases?";
+      const url = getDomain()+"/spotify/getNewReleasesAndTrack?";
+      //const url = getDomain()+"/spotify/newReleases?";
       const result = await get(url,params);
-      const previousPageUrl = result.data.albums.previous;
-      const nextPageUrl = result.data.albums.next;
-      const totalCount = result.data.albums.total;
+      // const previousPageUrl = result.data.albums.previous;
+      // const nextPageUrl = result.data.albums.next;
+      // const totalCount = result.data.albums.total;
       return result;
   }
 
@@ -118,8 +119,10 @@
   //餵入資料
   async function fillData(result){
     let contentHtml = '<div class="row gy-4 justify-content-center">';
+        console.log(result.data);
         // 階層 result.data.albums.items
-        result.data.albums.items.forEach(item => {
+        result.data.albums.forEach(item => {
+          //item.tracks.items[0].preview_url
           let title = `${item.artists[0].name} - ${item.name}`.replaceAll(/\'/g,"’");
           contentHtml += `
           <div class="col-xl-3 col-lg-4 col-md-6">
@@ -158,7 +161,7 @@
 
   //網頁初始動作
   window.onload = async function(){   
-      var result = await getNewReleases();
+      var result = await getNewReleasesAndTrack();
       await fillData(result);
     
   };

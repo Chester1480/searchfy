@@ -77,6 +77,7 @@ exports.newReleases = async (parameters) => {
     })
     return result.data;
 }
+
 exports.getTracksById = async(parameters)=>{
     const { id } = parameters;
     const url = 'https://api.spotify.com/v1/tracks/'+id;
@@ -174,6 +175,25 @@ exports.getAudioFeatures = async (ids) =>{
 exports.getTracks = async (market,ids) =>{
     const token = await getToken();
     const url = 'https://api.spotify.com/v1/tracks';
+    const params = {
+        market,
+        ids
+    }
+    const result = await axios.get(url, {
+        params,
+        headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        },
+    })
+    return result;
+}
+
+
+exports.albums = async (market ,ids) => {
+    const token = await getToken();
+    const url = 'https://api.spotify.com/v1/albums';
     const params = {
         market,
         ids
