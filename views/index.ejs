@@ -81,7 +81,7 @@
   //#region 查詢動作
   async function query(){
     const code = document.getElementById("selectValue").value ;
-    var result = await getNewReleases(code);
+    var result = await getNewReleasesAndTrack(code);
     await fillData(result);
   }
   //#endregion
@@ -116,20 +116,34 @@
     $('#'+id).modal('hide');
   }
 
+  function audition(url){
+    //['https:', '', 'open.spotify.com', 'album', '6Kqm5aSp69hTaOHTx38hsD']
+    let array = url.split('/');
+    url = array[0]+"//"+array[2]+"/embed/"+array[3]+"/"+array[4]
+    document.getElementById('playerContent').innerHTML =`
+      <div><iframe src="${url}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></div>
+    `
+  }
+
   //餵入資料
   async function fillData(result){
     let contentHtml = '<div class="row gy-4 justify-content-center">';
-        console.log(result.data);
         // 階層 result.data.albums.items
         result.data.albums.forEach(item => {
           //item.tracks.items[0].preview_url
           let title = `${item.artists[0].name} - ${item.name}`.replaceAll(/\'/g,"’");
+          // var sound = new Howl({
+          //   src: [item.tracks.items[0].preview_url],
+          //   html5: true
+          // });
+          // item.external_urls.spotify
           contentHtml += `
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="gallery-item h-100">
               <img src="${item.images[0].url}" class="img-fluid" alt="">
               <div class="gallery-links d-flex align-items-center justify-content-center">
                 <div onclick="setPic('${item.images[0].url}','${title}')"><span id="boot-icon" class="bi bi-zoom-in" style="font-size:3rem"></span></div>
+                <div><button type="button" onclick="audition('${item.external_urls.spotify}')" class="btn btn-success"><span class="bi bi-play" style="font-size:3rem"></button></div>
               </div>
             </div>
           </div>
@@ -170,6 +184,7 @@
   function init(){
       //#region 載入header 
       document.getElementById('headerContent').innerHTML = `
+            <div id="playerContent"></div>
             <select id="selectValue" onchange="query()" class="form-select" aria-label="Default select example">
                   <option value="US">US</option>
                   <option value="JP">JP</option>
@@ -187,3 +202,4 @@
   
 </script>
 </html>
+

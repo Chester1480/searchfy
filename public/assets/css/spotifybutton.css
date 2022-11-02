@@ -1,0 +1,56 @@
+.multi-tracks{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+  /*   justify-content:center;  */
+  }
+  
+  .multi-tracks iframe{
+    width:100%;
+    height:80px;
+    background: transparent;
+    border: none;  
+  }
+  
+  .multi-tracks > iframe{
+    margin-bottom: 1rem;
+  }
+  
+  .multi-tracks-2{
+    display:flex;
+  /*   flex-direction:column; */
+  /*   align-items: center; */
+    justify-content:space-evenly; 
+    margin-bottom: 3rem;
+  }
+  
+  
+  .multi-tracks-3{
+    width:100%;
+  /*   display:flex; */
+  /*   flex-direction:column; */
+  /*   align-items: center; */
+  /*   justify-content:space-evenly;  */
+  /*   margin-bottom: 3rem; */
+  }
+  
+  /* original CSS code:
+  https://jsfiddle.net/JMPerez/qa73L/ */
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    /*     max-width: 100%; */
+    max-width: 50%;
+    height: auto;
+  }
+  .embed-container iframe,
+  .embed-container object,
+  .embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
