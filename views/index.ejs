@@ -49,7 +49,8 @@
         <!-- <button onclick="hideModal('picModel')" class="btn-close btn-close-white" aria-label="Close"></button> -->
       </div>
       <div class="modal-content">
-        <img src="" id="picInModelContent" alt="">
+        <!-- <img src="" id="picInModelContent" alt=""> -->
+        <div id="playerContent" ></div>
       </div>
     </div>
   </div>
@@ -123,9 +124,18 @@
     //['https:', '', 'open.spotify.com', 'album', '6Kqm5aSp69hTaOHTx38hsD']
     let array = url.split('/');
     url = array[0]+"//"+array[2]+"/embed/"+array[3]+"/"+array[4]
+    document.getElementById('playerContent').innerHTML ='';
     document.getElementById('playerContent').innerHTML =`
-      <div><iframe src="${url}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></div>
+      <div><iframe width="100%" height="300" src="${url}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></div>
     `
+    // document.getElementById("picInModelContent").src= picUrl;
+    // document.getElementById("title").innerHTML = title;
+   
+
+    // $('#picModel .modal-backdrop').css('background', '#0B171F');
+    //$('#picModel').modal({backdrop: '', keyboard: true});
+    $('#picModel').modal('show');
+
   }
 
   //餵入資料
@@ -204,7 +214,6 @@
       document.getElementById('headerContent').innerHTML = `
         <form class="row row-cols-lg-auto g-3 align-items-center">
             <div class="col col-12">
-              <div id="playerContent"></div>
             </div>
             <div class="col-12">
               <select id="selectValue" onchange="query()" class="form-select" aria-label="Default select example">
