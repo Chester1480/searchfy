@@ -117,6 +117,9 @@
   }
 
   function audition(url){
+    //另一種更靈活的展示方法 教學 https://developer.spotify.com/documentation/embeds/guides/using-the-iframe-api/
+    //<div id="embed-iframe"></div> 
+
     //['https:', '', 'open.spotify.com', 'album', '6Kqm5aSp69hTaOHTx38hsD']
     let array = url.split('/');
     url = array[0]+"//"+array[2]+"/embed/"+array[3]+"/"+array[4]
@@ -142,12 +145,16 @@
             <div class="gallery-item h-100">
               <img src="${item.images[0].url}" class="img-fluid" alt="">
               <div class="gallery-links d-flex align-items-center justify-content-center">
-                <div onclick="setPic('${item.images[0].url}','${title}')"><span id="boot-icon" class="bi bi-zoom-in" style="font-size:3rem"></span></div>
-                <div><button type="button" onclick="audition('${item.external_urls.spotify}')" class="btn btn-success"><span class="bi bi-play" style="font-size:3rem"></button></div>
+                 <div><button type="button" onclick="audition('${item.external_urls.spotify}')" class="btn btn-success"><span class="bi bi-play" style="font-size:3rem"></button></div>
               </div>
             </div>
           </div>
           `
+          // <div class="gallery-links d-flex align-items-center justify-content-center">
+          //       <div onclick="setPic('${item.images[0].url}','${title}')"><span id="boot-icon" class="bi bi-zoom-in" style="font-size:3rem"></span></div>
+          //       <div><button type="button" onclick="audition('${item.external_urls.spotify}')" class="btn btn-success"><span class="bi bi-play" style="font-size:3rem"></button></div>
+          //     </div>
+
           //#region 
           //item.href
           //item.artists array
@@ -182,19 +189,36 @@
 </script>
 <script defer="defer">
   function init(){
+//     <div class="row g-3">
+//   <div class="col-sm-7">
+//     <input type="text" class="form-control" placeholder="City" aria-label="City">
+//   </div>
+//   <div class="col-sm">
+//     <input type="text" class="form-control" placeholder="State" aria-label="State">
+//   </div>
+//   <div class="col-sm">
+//     <input type="text" class="form-control" placeholder="Zip" aria-label="Zip">
+//   </div>
+// </div>
       //#region 載入header 
       document.getElementById('headerContent').innerHTML = `
-            <div id="playerContent"></div>
-            <select id="selectValue" onchange="query()" class="form-select" aria-label="Default select example">
-                  <option value="US">US</option>
-                  <option value="JP">JP</option>
-                  <option value="KR">KR</option>
-                  <option value="TW">TW</option>
-                  <option value="AU">AU</option>
-                  <option value="GB">UK</option>
-                  <option value="DE">DE</option>
-                  <option value="FR">FR</option>
-            </select>
+        <form class="row row-cols-lg-auto g-3 align-items-center">
+            <div class="col col-12">
+              <div id="playerContent"></div>
+            </div>
+            <div class="col-12">
+              <select id="selectValue" onchange="query()" class="form-select" aria-label="Default select example">
+                    <option value="US">US</option>
+                    <option value="JP">JP</option>
+                    <option value="KR">KR</option>
+                    <option value="TW">TW</option>
+                    <option value="AU">AU</option>
+                    <option value="GB">UK</option>
+                    <option value="DE">DE</option>
+                    <option value="FR">FR</option>
+              </select>
+            </div>
+          </div>
         `;
       //#endregion
   }
